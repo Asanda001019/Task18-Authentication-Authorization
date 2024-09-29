@@ -1,17 +1,17 @@
 // src/Home.js
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gray-200 rounded-md shadow-md">
-      <h1 className="text-5xl font-bold mb-4">Welcome to the Employee Management System</h1>
-      <p className="text-lg mb-6">Here you can register, edit, and manage employee information.</p>
-    
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+    <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+      <h1 className="text-6xl font-bold mb-4">Welcome to the Employee Management System</h1>
+      <p className="text-xl mb-8">Efficiently manage employee information and stay organized.</p>
+      <Link to="/register">
+        <button className="bg-white text-blue-600 font-semibold px-6 py-3 rounded-md shadow-lg hover:bg-gray-200 transition duration-300">
           Get Started
         </button>
-      
+      </Link>
     </div>
   );
 };

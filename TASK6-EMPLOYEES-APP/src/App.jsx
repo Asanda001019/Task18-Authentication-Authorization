@@ -1,19 +1,23 @@
-import './App.css'
+// src/App.js
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Layout from './components/layout';
 import Home from './components/Home';
-import RegisterForm from './components/registerForm';
-import Footer from './components/footer';
+import Register from './components/registerForm';
+import EmployeeList from './components/EmployeeList';
 
-
-function App() {
+const App = () => {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
-      <Home />
-      <RegisterForm />
-      <Footer />
-    </div>
+    <Router>
+      <Layout>
+        <Routes>
+          <Route exact path="/" element={<Home/>} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/employees" element={<EmployeeList/>} />
+        </Routes>
+      </Layout>
+    </Router>
   );
-}
+};
 
 export default App;
-
