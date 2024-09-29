@@ -21,3 +21,6 @@ Start the react server
 ```bash
 npm run dev
 ````
+
+## Tech Stack
+**Client:** React JS, HTML5, JavaScript, CSS3,Local storage
