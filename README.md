@@ -2,7 +2,7 @@
 
 
 <h1>Employees Application Task8</h1>
-<p>Employees application that stores employee data to local storage  </p>
+<p>Employees application that stores employee data to local storage Nb:Compress your image before uploading or ensure that the size of your image is not larger than 1mb </p>
 
 ## Run Locally
 Clone the project
