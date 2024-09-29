@@ -11,7 +11,7 @@ Clone the project
 ```
 Go to the project directory
 ```bash
-  cd TASK6-EMPLOYEES-APPLICATION
+  cd TASK6-EMPLOYEES-APPLICATION/TASK6-EMPLOYEES-APP
 ```
 Install dependencies
 ```bash
