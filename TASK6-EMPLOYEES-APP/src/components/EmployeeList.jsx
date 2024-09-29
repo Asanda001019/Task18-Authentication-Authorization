@@ -10,6 +10,7 @@ const EmployeesList = () => {
     position: '',
     picture: '',
   });
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
 
   useEffect(() => {
     const storedEmployees = JSON.parse(localStorage.getItem('employees')) || [];
@@ -49,6 +50,13 @@ const EmployeesList = () => {
     setEditingIndex(null);
   };
 
+  const filteredEmployees = employees.filter((employee) =>
+    employee.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    employee.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    employee.phone.includes(searchQuery) ||
+    employee.position.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (employees.length === 0) {
     return <p>No employees found.</p>;
   }
@@ -56,8 +64,18 @@ const EmployeesList = () => {
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
       <h2 className="text-2xl font-bold mb-4">Employees List</h2>
+
+      {/* Search Input */}
+      <input
+        type="text"
+        placeholder="Search employees..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="w-full px-3 py-2 mb-6 border rounded-md"
+      />
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {employees.map((employee, index) => (
+        {filteredEmployees.map((employee, index) => (
           <div key={index} className="border p-4 rounded-md shadow-sm bg-gray-100">
             {editingIndex === index ? (
               // Edit mode

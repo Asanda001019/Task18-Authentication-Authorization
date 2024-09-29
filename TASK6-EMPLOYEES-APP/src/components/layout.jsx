@@ -1,11 +1,10 @@
-// src/Layout.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Layout = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col">
-      <nav className="bg-blue-600 text-white p-4 shadow-lg">
+      <nav className="bg-gray-600 text-white p-4 shadow-lg">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-3xl font-bold">Employee Management System</h1>
           <div>
@@ -22,7 +21,7 @@ const Layout = ({ children }) => {
 
       <footer className="bg-gray-800 text-white p-4">
         <div className="container mx-auto text-center">
-          <p>&copy; {new Date().getFullYear()} Employee Management System. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Employee Management System. Asanda Madondo. All rights reserved.</p>
         </div>
       </footer>
     </div>

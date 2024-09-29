@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 
 const RegisterEmployee = () => {
   const [employee, setEmployee] = useState({
@@ -8,6 +9,8 @@ const RegisterEmployee = () => {
     position: '',
     picture: '',
   });
+
+  const navigate = useNavigate();  // Initialize useNavigate
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +39,9 @@ const RegisterEmployee = () => {
       picture: '',
     });
     alert('Employee Registered!');
+
+    // Navigate to EmployeesList page after registration
+    navigate('/employees');
   };
 
   return (
