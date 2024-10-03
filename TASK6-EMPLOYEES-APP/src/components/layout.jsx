@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
         <div className="container mx-auto flex justify-between items-center">
           {/* Logo and Heading - Moved towards the corner */}
           <div className="flex items-center ml-1"> {/* Added margin-left to move it towards the corner */}
-            <img src={logo} alt="Logo" className="w-12 h-8 mr-1" /> {/* Adjust size as needed */}
+            {/* <img src={logo} alt="Logo" className="w-12 h-8 mr-1" /> Adjust size as needed */}
 
             <h1 className="text-3xl font-bold">New Horizon Deep</h1>
           </div>
