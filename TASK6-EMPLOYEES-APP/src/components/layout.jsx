@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/R.png'; // Adjust the path based on your folder structure
+import logo from '../assets/staff.png'; // Adjust the path based on your folder structure
 
 const Layout = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col">
-      <nav className="bg-gray-600 text-white p-4 shadow-lg">
+      <nav className="bg-gray-800 text-white p-4 shadow-lg">
         <div className="container mx-auto flex justify-between items-center">
           {/* Logo and Heading - Moved towards the corner */}
-          <div className="flex items-center ml-1"> {/* Added margin-left to move it towards the corner */}
-            {/* <img src={logo} alt="Logo" className="w-12 h-8 mr-1" /> Adjust size as needed */}
+          <div className="flex items-center ml-30"> {/* Added margin-left to move it towards the corner */}
+            <img src={logo} alt="Logo" className="w-12 h-8 mr-4" /> 
 
-            <h1 className="text-3xl font-bold">New Horizon Deep</h1>
+            <h1 className="text-3xl font-bold">EmployeeHub</h1>
           </div>
 
           {/* Navigation Links */}

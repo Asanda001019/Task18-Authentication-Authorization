@@ -10,7 +10,7 @@ const RegisterEmployee = () => {
     picture: '',
   });
 
-  const navigate = useNavigate();  // Initialize useNavigate
+  const navigate = useNavigate(); 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -102,7 +102,7 @@ const RegisterEmployee = () => {
             required
           />
         </div>
-        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
+        <button type="submit" className="w-full bg-gray-800 text-white py-2 rounded-md hover:bg-blue-600">
           Register
         </button>
       </form>

@@ -126,7 +126,7 @@ const EmployeesList = () => {
 
                 <div className="flex justify-between">
                   <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                    className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                     onClick={handleSaveEdit}
                   >
                     Save

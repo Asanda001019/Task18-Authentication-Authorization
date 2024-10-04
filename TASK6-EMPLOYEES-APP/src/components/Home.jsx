@@ -9,23 +9,23 @@ const Home = () => {
       style={{ backgroundImage: `url(${backgroundImage})` }} // Set background image
     >
       <div className="bg-white bg-opacity-70 p-10 rounded-lg shadow-lg text-center mb-8">
-        <h1 className="text-6xl font-bold mb-4 text-navy-800 drop-shadow-lg">
+        <h3 className="text-6xl font-bold mb-4 text-gray-800 drop-shadow-lg">
           Welcome to the Employee Management System
-        </h1>
+        </h3>
         <p className="text-2xl mb-8 text-navy-600 font-semibold">
           Efficiently manage employee information and stay organized.
         </p>
       </div>
       <Link to="/register">
-        <button className="bg-blue-600 text-white font-semibold px-8 py-3 rounded-md shadow-lg hover:bg-blue-700 transition duration-300">
+        <button className="bg-gray-800 text-white font-semibold px-8 py-3 rounded-md shadow-lg hover:bg-blue-700 transition duration-300">
           Get Started
         </button>
       </Link>
 
       {/* Footer */}
-      <footer className="absolute bottom-0 w-full text-center py-4 bg-gray-800 text-white">
+      {/* <footer className="absolute bottom-0 w-full text-center py-4 bg-gray-800 text-white">
         <p>&copy; 2024 Employee Management System</p>
-      </footer>
+      </footer> */}
     </div>
   );
 };
