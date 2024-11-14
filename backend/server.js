@@ -144,6 +144,7 @@ app.delete("/employees/:id", async (req, res) => {
 });
 
 // Start server and print welcome message
+const PORT = process.env.PORT || 3001;
 app.listen(3001, () => {
   console.log("Server running on http://localhost:3001");
   console.log("Welcome to the Employee Management System"); // Your welcome message
@@ -153,14 +154,4 @@ app.listen(3001, () => {
 
 
 
-// const express = require("express");
-// const app = express();
-// const port = 3001;
 
-// app.get("/", (req, res) => {
-//   res.send("Hello, World!");
-// });
-
-// app.listen(port, () => {
-//   console.log(`Server listening on port ${port}`);
-// });
