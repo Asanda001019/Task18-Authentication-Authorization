@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Add axios to handle API requests
 
 const RegisterEmployee = () => {
   const [employee, setEmployee] = useState({
@@ -7,10 +8,10 @@ const RegisterEmployee = () => {
     email: '',
     phone: '',
     position: '',
-    picture: '',
+    picture: null, // Store picture as a file
   });
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,29 +20,34 @@ const RegisterEmployee = () => {
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setEmployee({ ...employee, picture: reader.result });
-    };
-    reader.readAsDataURL(file);
+    setEmployee({ ...employee, picture: file });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const employees = JSON.parse(localStorage.getItem('employees')) || [];
-    employees.push(employee);
-    localStorage.setItem('employees', JSON.stringify(employees));
-    setEmployee({
-      name: '',
-      email: '',
-      phone: '',
-      position: '',
-      picture: '',
-    });
-    alert('Employee Registered!');
 
-    // Navigate to EmployeesList page after registration
-    navigate('/employees');
+    const formData = new FormData();
+    formData.append('picture', employee.picture);
+    formData.append('employee', JSON.stringify({
+      name: employee.name,
+      email: employee.email,
+      phone: employee.phone,
+      position: employee.position,
+    }));
+
+    try {
+      await axios.post('http://localhost:3001/employees', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      alert('Employee Registered!');
+      navigate('/employees');
+    } catch (error) {
+      console.error("Error registering employee:", error);
+      alert("Error registering employee.");
+    }
   };
 
   return (

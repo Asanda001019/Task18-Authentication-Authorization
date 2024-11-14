@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const EmployeesList = () => {
   const [employees, setEmployees] = useState([]);
@@ -10,17 +11,28 @@ const EmployeesList = () => {
     position: '',
     picture: '',
   });
-  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+  const [searchQuery, setSearchQuery] = useState('');
 
+  // Fetch employees from the backend
   useEffect(() => {
-    const storedEmployees = JSON.parse(localStorage.getItem('employees')) || [];
-    setEmployees(storedEmployees);
+    const fetchEmployees = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/employees');
+        setEmployees(response.data);
+      } catch (error) {
+        console.error("Error fetching employees:", error);
+      }
+    };
+    fetchEmployees();
   }, []);
 
-  const handleDelete = (index) => {
-    const updatedEmployees = employees.filter((_, i) => i !== index);
-    setEmployees(updatedEmployees);
-    localStorage.setItem('employees', JSON.stringify(updatedEmployees));
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3001/employees/${id}`);
+      setEmployees(employees.filter((employee) => employee.id !== id));
+    } catch (error) {
+      console.error("Error deleting employee:", error);
+    }
   };
 
   const handleEditClick = (index) => {
@@ -33,21 +45,21 @@ const EmployeesList = () => {
     setEditedEmployee({ ...editedEmployee, [name]: value });
   };
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setEditedEmployee({ ...editedEmployee, picture: reader.result });
-    };
-    reader.readAsDataURL(file);
-  };
+  const handleSaveEdit = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('employee', JSON.stringify(editedEmployee));
+      if (editedEmployee.picture) {
+        formData.append('picture', editedEmployee.picture);
+      }
 
-  const handleSaveEdit = () => {
-    const updatedEmployees = [...employees];
-    updatedEmployees[editingIndex] = editedEmployee;
-    setEmployees(updatedEmployees);
-    localStorage.setItem('employees', JSON.stringify(updatedEmployees));
-    setEditingIndex(null);
+      await axios.put(`http://localhost:3001/employees/${editedEmployee.id}`, formData);
+      setEditingIndex(null);
+      const response = await axios.get('http://localhost:3001/employees');
+      setEmployees(response.data);
+    } catch (error) {
+      console.error("Error updating employee:", error);
+    }
   };
 
   const filteredEmployees = employees.filter((employee) =>
@@ -57,17 +69,10 @@ const EmployeesList = () => {
     employee.position.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  if (employees.length === 0) {
-    return <p>No employees found.</p>;
-    
-    
-  }
-
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
       <h2 className="text-2xl font-bold mb-4">Employees List</h2>
 
-      {/* Search Input */}
       <input
         type="text"
         placeholder="Search employees..."
@@ -78,71 +83,12 @@ const EmployeesList = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredEmployees.map((employee, index) => (
-          <div key={index} className="border p-4 rounded-md shadow-sm bg-gray-100">
+          <div key={employee.id} className="border p-4 rounded-md shadow-sm bg-gray-100">
             {editingIndex === index ? (
-              // Edit mode
               <div>
-                <label className="block mb-2">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={editedEmployee.name}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 mb-2 border rounded-md"
-                />
-
-                <label className="block mb-2">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={editedEmployee.email}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 mb-2 border rounded-md"
-                />
-
-                <label className="block mb-2">Phone Number</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={editedEmployee.phone}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 mb-2 border rounded-md"
-                />
-
-                <label className="block mb-2">Position</label>
-                <input
-                  type="text"
-                  name="position"
-                  value={editedEmployee.position}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 mb-2 border rounded-md"
-                />
-
-                <label className="block mb-2">Upload Picture</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  className="w-full px-3 py-2 mb-4 border rounded-md"
-                />
-
-                <div className="flex justify-between">
-                  <button
-                    className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                    onClick={handleSaveEdit}
-                  >
-                    Save
-                  </button>
-                  <button
-                    className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
-                    onClick={() => setEditingIndex(null)}
-                  >
-                    Cancel
-                  </button>
-                </div>
+                {/* Edit Form */}
               </div>
             ) : (
-              // Display mode
               <div>
                 <img
                   src={employee.picture}
@@ -163,7 +109,7 @@ const EmployeesList = () => {
                   </button>
                   <button
                     className="bg-red-500 text-white px-9 py-2 rounded-md hover:bg-red-600"
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDelete(employee.id)}
                   >
                     Delete
                   </button>
