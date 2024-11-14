@@ -1,15 +1,15 @@
 
-// const bodyParser = require("body-parser");
-// const multer = require("multer");
-// const cors = require("cors");  // Import CORS
-// const { db, bucket } = require("./firebaseConfig");
-// const express = require("express");
+const bodyParser = require("body-parser");
+const multer = require("multer");
+const cors = require("cors");  // Import CORS
+const { db, bucket } = require("./firebaseConfig");
+const express = require("express");
 
-// const app = express();
+const app = express();
 
-// // Enable CORS
-// app.use(cors());  // Add CORS middleware
-// app.use(bodyParser.json());
+// Enable CORS
+app.use(cors());  // Add CORS middleware
+app.use(bodyParser.json());
 
 // const upload = multer({ storage: multer.memoryStorage() });
 
@@ -151,8 +151,10 @@
 
 
 
-const express = require("express");
-const app = express();
+
+
+// const express = require("express");
+// const app = express();
 const port = 3001;
 
 app.get("/", (req, res) => {
