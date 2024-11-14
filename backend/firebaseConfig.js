@@ -18,18 +18,41 @@
 
 
 // firebaseConfig.js
+// const admin = require("firebase-admin");
+// const serviceAccount = require("./serviceAccountKey.json");
+
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   storageBucket: "employees-app-96cb1.appspot.com", // Corrected line
+// });
+
+// const db = admin.firestore();
+// const bucket = admin.storage().bucket();
+// module.exports = { admin, db, bucket };
+
+
+
+
 const admin = require("firebase-admin");
-const serviceAccount = require("./serviceAccountKey.json");
+const path = require("path");
+
+let serviceAccount;
+
+if (process.env.NODE_ENV === 'production') {
+  // In production (Render), use the path to the uploaded secure file
+  serviceAccount = path.join(__dirname, "serviceAccountKey.json"); 
+} else {
+  // In local development, use the file directly
+  serviceAccount = require("./serviceAccountKey.json");
+}
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  storageBucket: "employees-app-96cb1.appspot.com", // Corrected line
+  storageBucket: "employees-app-96cb1.appspot.com", // Your storage bucket name
 });
 
 const db = admin.firestore();
 const bucket = admin.storage().bucket();
+
 module.exports = { admin, db, bucket };
 
-
-// firebaseConfig.js
-// const admin = require("firebase-admin");
