@@ -14,7 +14,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 // Root route to check server status
 app.get("/", (req, res) => {
-  res.send("Welcome to the Employee Management System"); 
+  res.send("Welcome to the Employee Management System");
 });
 
 // Route to add a new employee
